@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>ResolveHD Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self'; 
+    connect-src 'self' https://clinicaltables.nlm.nih.gov; 
+    font-src 'self'; 
+    form-action 'self'; 
+    img-src 'self' data:; 
+    script-src 'self'; 
+    style-src 'self'; 
+    worker-src 'self' blob:; ">
+  <link rel="stylesheet" href="./css/jquery-ui.css">
+  <link rel="stylesheet" href="./css/chosen.min.css">
+  <link rel="stylesheet" href="./css/autocomplete-lhc.min.css">
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/material-fonts.css" />
+  <link rel="icon" type="image/png" href="./img/icon.png" sizes="any"/>
+</head>
+<body>
+  <div id="index-display" class="display">
+    <div class="index-logo"><img src="./img/resolve.png" width="400"/></div>
+
+    <div class="index-option" id="index-option-discharge">
+      <span class="material-symbols-outlined">prescriptions</span>
+      <span class="option-label">Discharge Summary</span>
+    </div>
+    <div class="index-option" id="index-option-timeline">
+      <span class="material-symbols-outlined">view_timeline</span>
+      <span class="option-label">Health Timeline</span>
+    </div>
+    <div class="index-option" id="index-option-form">
+      <span class="material-symbols-outlined">list_alt</span>
+      <span class="option-label">Form Automation</span>
+    </div>
+  </div>
+
+  <div id="form-display" class="display">
+
+    <div class="breadcrumb">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-icon">list_alt</span> 
+        <span class="breadcrumb-text">Form Automation</span> 
+      </div>
+    </div>
+
+    <h2>Referral Form for Centralized Surgeon Services Program</h2>
+
+    <form id="surgery-form" method="post" action="">
+      <fieldset>
+        <legend>Client Information: </legend>
+        <div class="left last">
+          <input type="text" id="health-card-num" name="health-card-num" placeholder="Health Card #" maxlength="10"></input>
+        </div>      
+        <div class="right last">
+          <input type="text" id="employer-name" name="employer-name" placeholder="Employer (optional)"></input>
+        </div>
+      </fieldset>
+  
+      <fieldset>
+        <legend>Injury Information: </legend>
+  
+        <div class="left">
+          <input type="text" id="injury-date" name="injury-date" placeholder="Date of Injury"></input>
+        </div>
+        <div class="right">
+          <fieldset class="radio">
+            <legend>Department: </legend>
+            <label for="department-plastics">Plastics</label>
+            <input type="radio" name="department" id="department-plastics" value="PLASTICS">
+            <label for="department-ortho">Ortho</label>
+            <input type="radio" name="department" id="department-ortho" value="ORTHO">
+          </fieldset>
+        </div>
+  
+        <div class="full">
+          <input type="text" id="diagnosis" name="diagnosis" placeholder="Diagnosis" class="full-width"></input>
+        </div>
+  
+        <div class="full">
+          <input type="text" id="injury-mechanism" name="injury-mechanism" placeholder="Mechanism of Injury (action, activity, anatomic position, lifting, twisting, force direction and impact etc.)" class="full-width"></input>
+        </div>
+  
+        <div class="left">
+          <select id="location" name="location" placeholder="Injury Location" data-placeholder="Injury Location" multiple>
+            <optgroup label="Upper">
+              <option value="Shoulder">Shoulder</option>
+              <option value="Elbow">Elbow</option>
+              <option value="Hand">Hand</option>
+              <option value="Wrist">Wrist</option>
+              <option value="Carpal Tunnel">Carpal Tunnel</option>
+            </optgroup>
+            <optgroup label="Lower">
+              <option value="Hip">Hip</option>
+              <option value="Knee">Knee</option>
+              <option value="Ankle">Ankle</option>
+              <option value="Foot">Foot</option>
+            </optgroup>
+            <optgroup label="General">
+              <option value="Inguinal Hernia">Inguinal Hernia</option>
+              <option value="Incisional Hernia">Incisional Hernia</option>
+              <option value="Umbilical Hernia">Umbilical Hernia</option>
+              <option value="Other">Other</option>
+            </optgroup>
+            <optgroup label="Spine">
+              <option value="Cervical">Cervical</option>
+              <option value="Thoracic">Thoracic</option>
+              <option value="Lumbar">Lumbar</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="right">
+          <fieldset class="radio hidden" id="side">
+            <legend>Side: </legend>
+            <label for="side-right">Right</label>
+            <input type="radio" name="side" id="side-right" value="Right">
+            <label for="side-left">Left</label>
+            <input type="radio" name="side" id="side-left" value="Left">
+            <label for="bilateral">Bilateral</label>
+            <input type="radio" name="side" id="side-bilateral" value="Bilateral">
+          </fieldset>
+  
+          <input type="text" id="general-other" name="general-other" placeholder="Other" class="hidden"></input>
+        </div>
+  
+        <div class="left">
+          <select id="clinical-findings" name="clinical-findings" placeholder="Clinical Findings" data-placeholder="Clinical Findings" multiple>
+            <option value="Decreased ROM">Decreased ROM</option>
+            <option value="Swelling">Swelling</option>
+            <option value="Weakness/Power Loss">Weakness/Power Loss</option>
+            <option value="Neurological Abnormality">Neurological Abnormality</option>
+            <option value="Gait Disturbance">Gait Disturbance</option>
+            <option value="Abnormal SLR">Abnormal SLR</option>
+            <option value="Abnormal/Absent Reflexes">Abnormal/Absent Reflexes</option>
+            <option value="Sensory Deficit">Sensory Deficit</option>
+            <option value="Bowel/Bladder">Bowel/Bladder</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="right">
+          <input type="text" id="clinical-findings-other" name="clinical-findings-other" placeholder="Other" class="hidden"></input>
+        </div>
+  
+        <div class="left">
+          <select id="investigations" name="investigations" placeholder="Investigations" data-placeholder="Investigations" multiple>
+            <option value="XRay">XRay</option>
+            <option value="CT/MRI">CT/MRI</option>
+            <option value="Nerve Conduction Studies">Nerve Conduction Studies</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="right">
+          <input type="text" id="investigations-other" name="investigations-other" placeholder="Other" class="hidden"></input>
+        </div>
+  
+      </fieldset>
+      <div class="button-row-right">
+        <input type="submit" value="Submit" class="button-highlight" />
+      </div>
+    </form>
+  </div>
+
+  <div id="result-display" class="display hidden">
+    <div class="breadcrumb">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-entry">
+        <span class="breadcrumb-icon">list_alt</span> 
+        <span class="breadcrumb-text">Form Automation</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-icon">article</span> 
+        <span class="breadcrumb-text">Completed Form</span> 
+      </div>
+    </div>
+
+    <h2>Referral Form for Centralized Surgeon Services Program</h2>
+
+    <div class="warning">
+      IMPORTANT: CSSP consult may take <span class="highlight">6 to 8 weeks</span> or more. DO NOT complete this form for clinically urgent, emergent or time sensitive injuries - refer those cases to Surgeon On-Call or Emergency Department.
+    </div>
+  
+    <div class="info-box">
+      <div class="info-box-header">CLIENT INFORMATION:</div>
+  
+      <div class="row">
+        <div class="field">
+          <label class="label-last-name">Last Name:</label>
+          <span class="data" id="data-last-name">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-first-name">First Name:</label>
+          <span class="data" id="data-first-name">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-initial">Initial:</label>
+          <span class="data" id="data-initial">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-wcb-claim-num">WCB Claim #:</label>
+          <span class="data" id="data-wcb-claim-num">&nbsp;</span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="field">
+          <label class="label-address">Address:</label>
+          <span class="data" id="data-address">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-province">Province:</label>
+          <span class="data" id="data-province">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-postal-code">Postal Code:</label>
+          <span class="data" id="data-postal-code">&nbsp;</span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="field">
+          <label class="label-gender">Gender:</label>
+          <span class="data" id="data-gender">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-health-card-num">Health Card #:</label>
+          <span class="data" id="data-health-card-num">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-family-physician-name">Family Physician Name:</label>
+          <span class="data" id="data-family-physician-name">&nbsp;</span>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="field">
+          <label class="label-daytime-phone-num label-wrap">Daytime<br>Phone Number:</label>
+          <span class="data data-wrap" id="data-daytime-phone-num">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-evening-phone-num label-wrap">Evening<br>Phone Number:</label>
+          <span class="data data-wrap" id="data-evening-phone-num">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-employer-name label-wrap">Employer<br>Name:</label>
+          <span class="data data-wrap" id="data-employer-name">&nbsp;</span>
+        </div>
+        <div class="field">
+          <label class="label-birth-date label-wrap">Date of Birth:</label>
+          <span class="data data-wrap" id="data-birth-date">&nbsp;</span>
+        </div>
+      </div>    
+  
+      <div class="info-box-header">INJURY INFORMATION:</div>
+  
+      <div class="row">
+        <div class="field">
+          <label class="label-injury-date">Date of Injury:</label>
+          <span class="data" id="data-injury-date">&nbsp;</span>
+        </div>
+  
+        <div class="field">
+          <label class="label-diagnosis">Diagnosis:</label>
+          <span class="data" id="data-diagnosis">&nbsp;</span>
+        </div>
+      </div>   
+  
+      <div class="row">
+        <div class="field">
+          <label class="label-injury-mechanism">Mechanism of Injury:</label>
+          <span class="data" id="data-injury-mechanism">&nbsp;</span>
+        </div>
+      </div>   
+
+      <div class="row">
+        <div class="field">
+          <label class="label-department">Department:</label>
+          <span class="data" id="data-department">&nbsp;</span>
+        </div>
+
+        <div class="field">
+          <label class="label-location">Injuries:</label>
+          <span class="data" id="data-location">&nbsp;</span>
+        </div>
+
+        <div class="field">
+          <label class="label-side">Side:</label>
+          <span class="data" id="data-side">&nbsp;</span>
+        </div>
+      </div>   
+
+      <div class="row">
+        <div class="field">
+          <label class="label-clinical-findings">Clinical Findings:</label>
+          <span class="data" id="data-clinical-findings">&nbsp;</span>
+        </div>
+      </div>   
+
+      <div class="row">
+        <div class="field">
+          <label class="label-investigations">Investigations:</label>
+          <span class="data" id="data-investigations">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="row">
+        <div class="field">
+          <label class="label-height">Height:</label>
+          <span class="data" id="data-height">&nbsp;</span>
+        </div>
+
+        <div class="field">
+          <label class="label-weight">Weight:</label>
+          <span class="data" id="data-weight">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="info-box-header">PAST MEDICAL HISTORY:</div>
+
+      <div class="row">
+        <div class="field">
+          <label class="label-surgical">Surgical:</label>
+          <span class="data" id="data-surgical">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="row">
+        <div class="field">
+          <label class="label-medical">Medical:</label>
+          <span class="data" id="data-medical">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="row">
+        <div class="field">
+          <label class="label-allergies">Allergies:</label>
+          <span class="data" id="data-allergies">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="row">
+        <div class="field">
+          <label class="label-medications">Medications:</label>
+          <span class="data" id="data-medications">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="row">
+        <div class="field">
+          <label class="label-treatments">Treatments:</label>
+          <span class="data" id="data-treatments">&nbsp;</span>
+        </div>
+      </div>  
+
+      <div class="row">
+        <div class="field">
+          <label class="label-previous-surgeon">If client was referred to surgeon in the past for injury to same body location, please record surgeon's name:</label>
+          <span class="data" id="data-previous-surgeon">&nbsp;</span>
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="field">
+          <label class="label-already-sent">Please indicate if a CURRENT referral has already been initiated:</label>
+          <span class="data" id="data-already-sent">&nbsp;</span>
+        </div>
+      </div> 
+      
+      <div class="info-box-header">REFERRING PHYSICIAN CERTIFICATION:</div>
+
+      <div class="row">
+        <div class="field">
+          <label class="label-signature">Signature of Physician:</label>
+          <span class="data" id="data-signature"></span>
+        </div>
+
+        <div class="field">
+          <label class="label-physician-phone-num">Phone Number:</label>
+          <span class="data" id="data-physician-phone-num">&nbsp;</span>
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="field">
+          <label class="label-physician-name">Physician Name:</label>
+          <span class="data" id="data-physician-name">&nbsp;</span>
+        </div>
+
+        <div class="field">
+          <label class="label-physician-date">Date:</label>
+          <span class="data" id="data-physician-date">&nbsp;</span>
+        </div>
+      </div> 
+
+      <div class="row">
+        <div class="field">
+          <label class="label-physician-address">Address:</label>
+          <span class="data" id="data-physician-address">&nbsp;</span>
+        </div>
+
+        <div class="field">
+          <label class="label-physician-wcb-num">WCB Physician #:</label>
+          <span class="data" id="data-physician-wcb-num">&nbsp;</span>
+        </div>
+      </div> 
+
+      <div class="row row-final">
+        <div class="field">
+          <label class="label-disclaimer">* All additional pages and attachments to this Form must be annotated with the WCB Claim Number</label>
+        </div>
+      </div>
+    </div>
+    <div class="button-row-right button-row-margin">
+      <input type="button" value="Print" id="button-print-form" class="button-highlight" />
+      <input type="button" value="WCB Form" id="button-wcb" class="button-highlight" />
+      <input type="button" value="Health Timeline" id="button-chart" class="button-highlight" />
+    </div>
+  </div>
+
+  <div id="wcb-display" class="display hidden">
+    <div class="breadcrumb">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-entry">
+        <span class="breadcrumb-icon">list_alt</span> 
+        <span class="breadcrumb-text">Form Automation</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-result">
+        <span class="breadcrumb-icon">article</span> 
+        <span class="breadcrumb-text">Completed Form</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-text">WCB Form</span> 
+      </div>
+    </div>
+    <div class="wcb-display-content">
+      <div class="wcb-header-row">
+        <div class="wcb-field wcb-logo">
+          <img src="./img/wcb-logo.png" width="200">
+        </div>
+        <div class="wcb-field wcb-sub-address">
+          <p><b>Halifax Office</b></p>
+          <p>5668 South Street</p>
+          <p>PO Box 1150</p>
+          <p>Halifax, NS B3J 2Y2</p>
+          <p>Toll Free: 1-800-870-3331</p>
+          <p>Phone: 902-491-8999</p>
+          <p>Fax: 902-491-8001</p>
+        </div>
+        <div class="wcb-field wcb-sub-address">
+          <p><b>Sydney Office</b></p>
+          <p>404 Charlotte Street, Suite 200</p>
+          <p>Sydney, NS B1P 1E2</p>
+          <p>Toll Free: 1-800-880-0003</p>
+          <p>Phone: 902-563-2444</p>
+          <p>Fax: 902-563-0512</p>
+        </div>
+        <div class="wcb-field wcb-title">
+          Occupational<br/>Disease Form
+        </div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-field wcb-claim-label">WCB Claim Number:</div>
+        <div class="wcb-field wcb-claim-num" id="wcb-claim-num">1234567890</div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-field wcb-occupational-disease">OCCUPATIONAL DISEASE</div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-field wcb-message1">
+          <p><b>Message to Worker</b></p>
+          <p>Please complete this form carefully, sign and return it to the Workers' Compensation Board.</p>
+        </div>
+        <div class="wcb-field wcb-message2">
+          <p>To avoid undue delays in the adjudication of your claim, please provide us with as much information as possible.</p>
+        </div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-field wcb-general-information">
+          General Information
+        </div>
+      </div>
+      <div class="wcb-general-information-box">
+        <div class="wcb-row">
+          <div class="wcb-field wcb-last-name">
+            <label>Worker's Last Name</label>
+            <span id="wcb-last-name" class="wcb-data"></span>
+          </div>
+          <div class="wcb-field wcb-first-name">
+            <label>First Name</label>
+            <span id="wcb-first-name" class="wcb-data"></span>
+          </div>
+          <div class="wcb-field wcb-field-end wcb-initial">
+            <label>Initial</label>
+            <span id="wcb-initial" class="wcb-data"></span>
+          </div>
+          <div class="wcb-field wcb-birth-date">
+            <label>Date of Birth (dd/mm/yyyy)</label>
+            <span id="wcb-birth-date" class="wcb-data"></span>
+          </div>
+        </div>
+        <div class="wcb-row">
+          <div class="wcb-field wcb-address">
+            <label>Mailing Address:</label>
+            <span id="wcb-address" class="wcb-data">
+            </span>
+          </div>
+          <div class="wcb-field wcb-field-start">
+            <div class="wcb-sub-field">
+              <label>SIN</label>
+              <span id="wcb-sin" class="wcb-data">&nbsp;</span>
+            </div>
+            <div class="wcb-sub-field">
+              <label>Health Card Number</label>
+              <span id="wcb-health-card-num" class="wcb-data"></span>
+            </div>
+            <div class="wcb-sub-field wcb-sub-field-last">
+              <label>Gender</label>
+              <span id="wcb-gender" class="wcb-data"></span>
+            </div>
+          </div>
+        </div>
+        <div class="wcb-row">
+          <div class="wcb-field wcb-field-end wcb-postal-code">
+            <label>Postal Code</label>
+            <span id="wcb-postal-code" class="wcb-data"></span>
+          </div>
+          <div class="wcb-field wcb-field-end wcb-telephone-num">
+            <label>Telephone #</label>
+            <span id="wcb-telephone-num" class="wcb-data"></span>
+          </div>
+          <div class="wcb-field wcb-marital-status">
+            <label>Marital Status</label>
+            <span id="wcb-marital-status" class="wcb-data"></span>
+          </div>
+        </div>
+      </div>
+      <div class="wcb-row-left">
+        <div class="wcb-field">
+          <label>1 Name of disease or exposure being claimed:</label>
+          <span id="wcb-diagnosis" class="wcb-data"></span>
+        </div>
+  
+        <div class="wcb-field">
+          <label>2 Smoking History:</label>
+          <span id="wcb-smoking" class="wcb-data"></span>
+        </div>
+  
+        <div class="wcb-field">
+          <label>3 Please indicate the major cause of your condition: </label>
+          <span id="wcb-cause" class="wcb-data"></span>
+        </div>
+      </div>
+      <div class="wcb-row-right">
+        <div class="wcb-field">
+          <label>4 Are you currently employed?</label>
+          <span id="wcb-employed" class="wcb-data"></span>
+        </div>
+  
+        <div class="wcb-field">
+          <label>5 Have you been awarded any benefits from any other agency (ie. Veterans' Affairs, LTD) for this condition?</label>
+          <span id="wcb-benefits" class="wcb-data"></span>
+        </div>
+  
+        <div class="wcb-field">
+          <label>6 Have you ever been a member of a union? </label>
+          <span id="wcb-union" class="wcb-data"></span>
+        </div>
+      </div>
+      <div class="wcb-row-full">
+        <div class="wcb-field">
+          <label>7 When did you first receive medical treatment for this condition? Who treated you?</label>
+          <span id="wcb-first-treated" class="wcb-data">
+            <p>Date of Treatment:: 29/08/2022</p>
+            <p>Physician: Dr. John Smith</p>
+            <p>Address: 21 Spring Garden</p>
+            <p>Phone: 902-404-2477</p>
+          </span>
+        </div>
+      </div>
+      <div class="wcb-row-full">
+        <div class="wcb-field">
+          <label>8 Is the physician noted in Question 7 your family doctor? If no, please provide the name and telephone number of your family doctor:</label>
+          <span id="wcb-family-physician" class="wcb-data">
+            <p>Physician: Dr. Jane Doe</p>
+            <p>Address: 21 Spring Garden</p>
+            <p>Phone: 902-404-2477</p>
+          </span>
+        </div>
+      </div>
+      <div class="wcb-row-full">
+        <div class="wcb-field">
+          <label>9 Please list any physicians and medical treatment or tests you have had related to your condition. Please start with your most recent, and attach additional paper if necessary</label>
+          <span id="wcb-physician-list" class="wcb-data">
+            <p>Date of Treatment: 29/08/2022</p>
+            <p>Physician: Dr. John Smith</p>
+            <p>Address: 21 Spring Garden</p>
+            <p>Phone: 902-404-2477</p>
+            <p>Treatment Type: Chest x-ray</p>
+          </span>
+        </div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-declaration-title">Declaration and Consent</div>
+        <div class="wcb-declaration">
+          I declare that all of the information found on this form is true and correct, and I elect to claim
+          compensation for the aforementioned condition. This declaration is my authority to the WCB to obtain
+          information from any source, including reports of and from all physicians or hospitals, and all or any
+          records pertaining to my case history, examination and treatment.
+        </div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-signature">Signature of Worker</div>
+        <div class="wcb-signature-date">Date (DD/MM/YY)</div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-representative">
+          <b>Representative</b><br/>
+          I authorize the WCB to provide any information related to this claim to ___________________________________<span class="muted">(name of representative)</span>, who is my ___________________________________<span class="muted">(relationship to worker)</span>. I designate this person to speak/act on my behalf. 
+        </div>
+      </div>
+      <div class="wcb-row">
+        <div class="wcb-signature">Signature of Worker</div>
+        <div class="wcb-signature-date">Date (DD/MM/YY)</div>
+      </div>
+    </div>
+    <div class="button-row-right">
+      <input type="button" value="Print" id="button-print-wcb" class="button-highlight" />
+    </div>
+  </div>
+
+  <div id="raw-display" class="display hidden">
+    <div class="breadcrumb">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-icon">prescriptions</span> 
+        <span class="breadcrumb-text">Select Discharge Notes</span> 
+      </div>
+    </div>
+
+    <div class="discharge-row">
+      <fieldset>
+        <legend>Encounter Information: </legend>
+        <div class="left">
+          <label>Health Card #:</label>
+          <input type="text" id="raw-card-num" name="health-card-num" placeholder="Health Card #" maxlength="10" value="0000000001"></input>
+        </div>      
+        <div class="left">
+          <label>Encounter Date:</label>
+          <select id="encounter" name="encounter" placeholder="Encounter Date">
+            <option value="">-- Select Encounter Date --</option>
+            <option value="1000001">02/01/2024 - 02/05/2024</option>
+            <option value="1000002">03/15/2023 - 03/16/2023</option>
+            <option value="1000003">06/15/2022 - 06/20/2022</option>
+            <option value="1000004">09/10/2019 - 09/15/2019</option>
+            <option value="1000005">12/01/2017 - 12/06/2017</option>
+          </select>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="discharge-row">
+      <div id="summary-raw">
+        select encounter date to view discharge summary
+      </div>
+    </div>
+
+    <div class="discharge-button-row button-row-right">
+      <input type="button" value="Parse" id="button-parse-discharge" class="hidden button-highlight" />
+    </div>
+  </div>
+
+  <div id="discharge-display" class="display hidden">
+    <div class="breadcrumb" id="discharge-path">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-discharge">
+        <span class="breadcrumb-icon">prescriptions</span> 
+        <span class="breadcrumb-text">Select Discharge Notes</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-text">View Summary</span> 
+      </div>
+    </div>
+
+    <div class="breadcrumb" id="timeline-path">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-chart">
+        <span class="breadcrumb-icon">view_timeline</span> 
+        <span class="breadcrumb-text">Health Timeline</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-text">View Summary</span> 
+      </div>
+    </div>
+
+    <div class="breadcrumb" id="form-path">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-entry">
+        <span class="breadcrumb-icon">list_alt</span> 
+        <span class="breadcrumb-text">Form Automation</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-result">
+        <span class="breadcrumb-icon">article</span> 
+        <span class="breadcrumb-text">Completed Form</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-chart">
+        <span class="breadcrumb-icon">view_timeline</span> 
+        <span class="breadcrumb-text">Health Timeline</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-text">Discharge Summary</span> 
+      </div>
+    </div>
+
+    <div class="discharge-row">
+      <img src="./img/nsha-logo.png" width="200">
+    </div>
+
+    <div class="discharge-row">
+      <h2>Medical Discharge Summary</h2>
+    </div>
+    <div class="discharge-row">
+      <div class="discharge-field discharge-name">
+        <label>Patient Name:</label>
+        <span id="discharge-name" class="discharge-data"></span>
+      </div>
+      <div class="discharge-field discharge-birth-date">
+        <label>Date of Birth:</label>
+        <span id="discharge-birth-date" class="discharge-data"></span>
+      </div>
+    </div>
+    <div class="discharge-row">
+      <div class="discharge-field discharge-health-card-num">
+        <label>Health Card #:</label>
+        <span id="discharge-health-card-num" class="discharge-data"></span>
+      </div>
+      <div class="discharge-field discharge-gender">
+        <label>Gender:</label>
+        <span id="discharge-gender" class="discharge-data"></span>
+      </div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">Visit Encounter</div>
+      </div>
+      <div class="discharge-row">
+        <div class="discharge-field discharge-hospital-id">
+          <label>Hospital ID:</label>
+          <span id="discharge-hospital-id" class="discharge-data"></span>
+        </div>
+        <div class="discharge-field discharge-admission-date">
+          <label>Admission Date:</label>
+          <span id="discharge-admission-date" class="discharge-data"></span>
+        </div>
+      </div>
+      <div class="discharge-row">
+        <div class="discharge-field discharge-hospital-name">
+          <label>Hospital Name:</label>
+          <span id="discharge-hospital-name" class="discharge-data"></span>
+        </div>
+        <div class="discharge-field discharge-discharge-date">
+          <label>Discharge Date:</label>
+          <span id="discharge-discharge-date" class="discharge-data"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">Hospital Course</div>
+      </div>
+      <div class="discharge-row discharge-text" id="discharge-course"></div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">Diagnosis and Procedures</div>
+      </div>
+      <div class="discharge-row">
+        <div class="discharge-field discharge-primary-diagnosis">
+          <label>Primary Diagnosis:</label>
+          <span id="discharge-primary-diagnosis" class="discharge-data"></span>
+        </div>
+        <div class="discharge-field discharge-secondary-diagnosis">
+          <label>Secondary Diagnosis:</label>
+          <span id="discharge-secondary-diagnosis" class="discharge-data"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">Condition at Discharge and Medications</div>
+      </div>
+      <div class="discharge-row discharge-text" id="discharge-condition"></div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">Follow-up Care Instructions</div>
+      </div>
+      <div class="discharge-row discharge-text" id="discharge-instructions"></div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">Appointments and Contact Information</div>
+      </div>
+      <div class="discharge-row discharge-text" id="discharge-appointments"></div>
+    </div>
+
+    <div class="discharge-box">
+      <div class="discharge-row">
+        <div class="section-header">50 Word Summary</div>
+      </div>
+      <div class="discharge-row discharge-text" id="discharge-summary"></div>
+    </div>
+
+    <div class="discharge-button-row button-row-right">
+      <input type="button" value="Print" id="button-print-discharge" class="button-highlight" />
+    </div>
+
+  </div>
+
+  <div id="chart-display" class="display">
+    <div class="breadcrumb hidden" id="breadcrumb-chart" >
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-icon">view_timeline</span> 
+        <span class="breadcrumb-text">Health Timeline</span> 
+      </div>
+    </div>
+
+    <div class="breadcrumb hidden" id="breadcrumb-chart-result">
+      <div class="breadcrumb-item button-home">
+        <span class="breadcrumb-icon">home</span> 
+        <span class="breadcrumb-text">Home</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-entry">
+        <span class="breadcrumb-icon">list_alt</span> 
+        <span class="breadcrumb-text">Form Automation</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item button-form-result">
+        <span class="breadcrumb-icon">article</span> 
+        <span class="breadcrumb-text">Completed Form</span> 
+      </div>
+      <div class="breadcrumb-seperator">
+        /
+      </div>
+      <div class="breadcrumb-item-active">
+        <span class="breadcrumb-icon">view_timeline</span> 
+        <span class="breadcrumb-text">Health Timeline</span> 
+      </div>
+    </div>
+
+    <div id="chart-patient" class="hidden">
+      <div class="patient-info">
+        <div id="chart-patient-name">&nbsp;</div>
+        <div class="chart-info">
+          <label>Age:</label>
+          <span id="chart-patient-age">&nbsp;</span>
+        </div>
+        <div class="chart-info">
+          <label>Gender:</label>
+          <span id="chart-patient-gender">&nbsp;</span>
+        </div>
+        <div class="chart-info">
+          <label>Health Card:</label>
+          <span id="chart-patient-health-card-num">&nbsp;</span>
+        </div>
+        <div class="chart-info">
+          <label>Physician:</label>
+          <span id="chart-patient-physician">&nbsp;</span>
+        </div>
+      </div>
+      <div class="patient-alert" id="patient-alert">
+        <div id="alert-button">
+          <span class="breadcrumb-icon">warning</span> 
+          <span class="breadcrumb-text">Potential Health Issue(s)</span> 
+        </div>
+
+        <div class="alert-message-box hidden" id="alert-message-box">
+          <div class="alert-message-title">
+            <span class="breadcrumb-icon">warning</span> 
+            <span class="breadcrumb-text">Potential Health Issue(s)</span>
+          </div>
+          <div class="alert-message-close" id="alert-button-close">
+            X
+          </div>
+          <div class="alert-message-text">
+            <div class="alert-message-highlight">16.3% probability of Hypertension (HTN)</div>
+            Based on demographics (region, gender) and evidence of Diabetes, there is a 16.25% chance of Hypertension
+
+            <div class="alert-message-highlight">15.6% probability of High Blood Pressure (HBP)</div>
+            Based on demographics (region, gender) and evidence of Diabetes, there is a 15.63% chance of High Blood Pressure
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="chart-graphic"></div>
+  </div>
+
+  <script src="./js/jquery-3.7.1.min.js"></script>
+  <script src="./js/jquery-ui.min.js"></script>
+  <script src="./js/autocomplete-lhc.min.js"></script>
+  <script src="./js/chosen.jquery.min.js"></script>
+  <script src="./js/d3.v7.min.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/chart.js"></script>
+</body>
+</html>
